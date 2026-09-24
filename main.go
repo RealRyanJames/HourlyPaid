@@ -2,10 +2,34 @@ package main
 
 import (
 	"fmt"
+	"strings"
+	"time"
 )
 
 func Multiply(a int, b int) int {
 	return (a * b) / 2
+}
+
+type DateNow struct{}
+
+func (date DateNow) GetDate() string {
+	if time.Now().Hour() < 10 {
+		return strings.ToUpper("Good Morning")
+	} else if time.Now().Hour() > 11 && time.Now().Hour() < 17 {
+
+		return strings.ToUpper("Good Afternoon")
+	} else if time.Now().Hour() > 17 {
+
+		return strings.ToUpper("Good Evening")
+	}
+
+	return string("")
+
+}
+
+func (date DateNow) GetDateNow() string {
+	now := time.Now()
+	return strings.ToUpper(fmt.Sprintf("%s/%d/%d", now.Month().String(), now.Day(), now.Year()))
 }
 
 const (
@@ -24,6 +48,23 @@ type Objects struct {
 	hoursPaid      float64
 	balance        float64
 	isMoneyBalance bool
+}
+
+type TITLE struct {
+	AppTitle string
+}
+
+func ServeTitles() {
+	titles_app := TITLE{
+		AppTitle: strings.ToUpper("Weekly Paycheck Balance"),
+	}
+
+	fmt.Println(titles_app.AppTitle)
+}
+
+func (title TITLE) GetTitle() {
+
+	ServeTitles()
 }
 
 func (objects Objects) Get() {
@@ -46,6 +87,24 @@ func ReadSystem() {
 	fmt.Scanln()
 }
 
+type PrintMessageln struct {
+	PrinterMessage string
+}
+
+func (println PrintMessageln) GetPrintedLine() {
+	fmt.Println(println.PrinterMessage)
+}
+
+type SLEEP struct {
+	sleeping bool
+}
+
+func (sleep SLEEP) Sleep() {
+	if sleep.sleeping {
+		time.Sleep(4 * time.Second)
+	}
+}
+
 func main() {
 
 	objects := Objects{
@@ -55,7 +114,35 @@ func main() {
 		balance:        2.0,
 	}
 
+	date := DateNow{}
+
+	date.GetDateNow()
+	printDate := PrintMessageln{
+		date.GetDateNow(),
+	}
+
+	printDate.GetPrintedLine()
+
+	println := PrintMessageln{
+		date.GetDate(),
+	}
+
+	println.GetPrintedLine()
+
+	title := TITLE{}
+	title.GetTitle()
+
+	fmt.Printf("%s", "\n")
+
+	SLEEP := SLEEP{
+		sleeping: true,
+	}
+
 	if !Running {
+
+		if SLEEP.sleeping {
+			SLEEP.Sleep()
+		}
 
 		for objects.balance < 3.0 {
 
