@@ -97,11 +97,12 @@ func (println PrintMessageln) GetPrintedLine() {
 
 type SLEEP struct {
 	sleeping bool
+	LENGTH   float64
 }
 
 func (sleep SLEEP) Sleep() {
 	if sleep.sleeping {
-		time.Sleep(4 * time.Second)
+		time.Sleep(time.Duration(sleep.LENGTH) * time.Second)
 	}
 }
 
@@ -112,6 +113,15 @@ func main() {
 		hoursPaid:      0.0,
 		isMoneyBalance: true,
 		balance:        2.0,
+	}
+
+	SLEEP := SLEEP{
+		sleeping: true,
+		LENGTH:   float64(20.0 / 2),
+	}
+
+	if SLEEP.sleeping {
+		SLEEP.Sleep()
 	}
 
 	date := DateNow{}
@@ -134,9 +144,7 @@ func main() {
 
 	fmt.Printf("%s", "\n")
 
-	SLEEP := SLEEP{
-		sleeping: true,
-	}
+	SLEEP.LENGTH = float64(144/12 - 3)
 
 	if !Running {
 
