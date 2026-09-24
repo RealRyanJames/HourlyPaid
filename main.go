@@ -15,36 +15,58 @@ const (
 	X          = 5.0
 	Y          = 6.0
 	Z          = (X * Y) * (MX_NUM * 6)
-	MONTHLY    = 15 * MX_NUM * 4
+	MONTHLY    = (Y + 9) * MX_NUM * 4
 	WEEKLY     = (150 * 4) / 4
 )
 
+type Objects struct {
+	price          float64
+	hoursPaid      float64
+	balance        float64
+	isMoneyBalance bool
+}
+
+func (objects Objects) Get() {
+
+	objects.price = float64(Multiply(X, Y))
+
+	objects.hoursPaid = float64(MX_NUM)
+
+	var paidCalculation float64 = objects.price * objects.hoursPaid
+
+	fmt.Println("Price:", objects.price, "Hours Worked:", objects.hoursPaid, "Hours & Got",
+		fmt.Sprintf("%s%0.2f", "$", paidCalculation))
+
+	fmt.Printf("Monthly: $%0.2f\n", float64(WEEKLY*4))
+	fmt.Printf("Weekly: $%0.2f", float64(WEEKLY))
+
+}
+
+func ReadSystem() {
+	fmt.Scanln()
+}
+
 func main() {
+
+	objects := Objects{
+		price:          0,
+		hoursPaid:      0.0,
+		isMoneyBalance: true,
+		balance:        2.0,
+	}
 
 	if !Running {
 
-		var price float64 = 0
-		var hoursPaid float64 = 0.0
-		var isMoneyBalance bool = true
-		var balance float64 = 2.0
+		for objects.balance < 3.0 {
 
-		for balance < 3.0 {
-
-			if isMoneyBalance {
-				price = float64(Multiply(X, Y))
-
-				hoursPaid = float64(MX_NUM)
-				var paidCalculation float64 = price * hoursPaid
-
-				fmt.Println("Price:", price, "Hours Worked:", hoursPaid, "Hours & Got",
-					fmt.Sprintf("%s%0.2f", "$", paidCalculation))
-				fmt.Println("Year Paid will Be:", fmt.Sprintf("%s%0.2f", "$", Z))
-				fmt.Printf("Monthly: $%0.2f\n", float64(WEEKLY*4))
-				fmt.Printf("Weekly: $%0.2f", float64(WEEKLY))
+			if objects.isMoneyBalance {
+				objects.Get()
 			}
 
-			balance += 1.0
+			objects.balance += 1.0
 		}
+
+		ReadSystem()
 	}
 
 }
