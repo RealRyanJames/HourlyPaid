@@ -14,6 +14,9 @@ const (
 	MX_NUM     = MIN_NUMBER + 2
 	X          = 5.0
 	Y          = 6.0
+	Z          = (X * Y) * (MX_NUM * 6)
+	MONTHLY    = 15 * MX_NUM * 4
+	WEEKLY     = (150 * 4) / 4
 )
 
 func main() {
@@ -35,7 +38,9 @@ func main() {
 
 				fmt.Println("Price:", price, "Hours Worked:", hoursPaid, "Hours & Got",
 					fmt.Sprintf("%s%0.2f", "$", paidCalculation))
-
+				fmt.Println("Year Paid will Be:", fmt.Sprintf("%s%0.2f", "$", Z))
+				fmt.Printf("Monthly: $%0.2f\n", float64(WEEKLY*4))
+				fmt.Printf("Weekly: $%0.2f", float64(WEEKLY))
 			}
 
 			balance += 1.0
